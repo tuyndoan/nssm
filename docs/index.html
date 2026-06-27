@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- NSSM docs — Public Domain. -->
+<!-- NSSM docs — Public Domain. Single-page hub. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -21,192 +21,51 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #eef1f8;
-      --bg-elevated: #ffffff;
-      --text: #0b1220;
-      --text-secondary: #475569;
-      --muted: #64748b;
-      --border: rgb(15 23 42 / 8%);
-      --border-strong: rgb(15 23 42 / 12%);
-      --primary: #2b6cb0;
-      --primary-glow: rgb(43 108 176 / 22%);
-      --green: #2f9e44;
-      --teal: #0c8599;
-      --purple: #ae3ec9;
-      --radius: 16px;
-      --radius-sm: 10px;
-      --font: "DM Sans", system-ui, sans-serif;
-      --mono: "JetBrains Mono", ui-monospace, monospace;
-      --shadow: 0 4px 24px rgb(15 23 42 / 7%);
-      --shadow-lg: 0 20px 50px rgb(15 23 42 / 10%);
-      --header-h: 64px;
-    }
-    .dark {
-      --bg: #080b12;
-      --bg-elevated: #121826;
-      --text: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --muted: #64748b;
-      --border: rgb(255 255 255 / 7%);
-      --border-strong: rgb(255 255 255 / 12%);
-      --primary: #4dabf7;
-      --primary-glow: rgb(77 171 247 / 22%);
-      --shadow: 0 4px 24px rgb(0 0 0 / 35%);
-      --shadow-lg: 0 24px 60px rgb(0 0 0 / 45%);
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; font-family: var(--font); font-size: 15px; line-height: 1.6;
-      color: var(--text); background: var(--bg);
-    }
-    body, .header, .card, .code-card, .badge-pill, .btn {
-      transition: background-color .25s ease, border-color .25s ease, color .25s ease;
-    }
-    a { color: inherit; }
-    .ambient {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background:
-        radial-gradient(ellipse 70% 45% at 5% -5%, rgb(43 108 176 / 16%), transparent 50%),
-        radial-gradient(ellipse 55% 40% at 95% 0%, rgb(47 158 68 / 12%), transparent 48%),
-        radial-gradient(ellipse 45% 35% at 50% 105%, rgb(174 62 201 / 8%), transparent 50%);
-    }
-
-    .header {
-      position: sticky; top: 0; z-index: 200; height: var(--header-h);
-      background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
-      backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
-    }
-    .header-inner {
-      max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; height: 100%;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .brand { display: flex; align-items: center; gap: 0.85rem; text-decoration: none; }
-    .brand-mark {
-      width: 42px; height: 42px; border-radius: 12px;
-      background: linear-gradient(145deg, #2f9e44, #0c8599);
-      box-shadow: 0 4px 14px rgb(47 158 68 / 25%); display: grid; place-items: center;
-    }
-    .brand-mark span { color: #fff; font-weight: 800; font-size: 10px; letter-spacing: 0.06em; }
-    .brand h1 { margin: 0; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
-    .brand p { margin: 0; font-size: 0.72rem; color: var(--muted); }
-    .header-actions { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
-    .btn {
-      border: 1px solid var(--border-strong); background: var(--bg-elevated); color: var(--text);
-      border-radius: 999px; padding: 0.5rem 1rem; font-family: inherit; font-size: 0.8125rem;
-      font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex;
-      align-items: center; gap: 0.45rem; transition: background .15s, border-color .15s, transform .15s;
-    }
-    .btn:hover { background: var(--bg); }
-    .btn svg { width: 16px; height: 16px; }
-    .btn-primary {
-      border-color: transparent; color: #fff;
-      background: linear-gradient(145deg, #2f9e44, #0c8599);
-      box-shadow: 0 4px 16px rgb(47 158 68 / 28%);
-    }
-    .btn-primary:hover { background: linear-gradient(145deg, #2b8f3e, #0b7589); transform: translateY(-1px); }
-    .btn-icon { width: 40px; height: 40px; padding: 0; display: grid; place-items: center; border-radius: 12px; }
-    .dark .icon-sun { display: none; }
-    html:not(.dark) .icon-moon { display: none; }
-    .btn-icon svg { width: 18px; height: 18px; }
-
-    .wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 1.5rem; }
-
-    .hero { padding: 3.5rem 0 2rem; text-align: center; }
-    .badge-pill {
-      display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.35rem 0.85rem;
-      border: 1px solid var(--border-strong); border-radius: 999px; background: var(--bg-elevated);
-      font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); box-shadow: var(--shadow);
-    }
-    .badge-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgb(47 158 68 / 20%); }
-    .hero h2 {
-      margin: 1.25rem 0 0.5rem; font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800;
-      letter-spacing: -0.04em; line-height: 1.05;
-    }
-    .hero h2 .grad {
-      background: linear-gradient(120deg, #2f9e44, #0c8599 60%, #2b6cb0);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .hero p.lede {
-      max-width: 620px; margin: 0.5rem auto 0; font-size: 1.08rem; color: var(--text-secondary);
-    }
-    .hero-actions { margin-top: 1.75rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
-
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 2.5rem; }
-    @media (max-width: 860px) { .cards { grid-template-columns: 1fr; } }
-    .card {
-      display: block; text-decoration: none; color: inherit; background: var(--bg-elevated);
-      border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem;
-      box-shadow: var(--shadow); transition: transform .18s, box-shadow .18s, border-color .18s;
-    }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border-strong); }
-    .card-ico {
-      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-      margin-bottom: 0.9rem; color: #fff;
-    }
-    .card-ico svg { width: 22px; height: 22px; }
-    .ico-green { background: linear-gradient(145deg, #2f9e44, #099268); }
-    .ico-teal { background: linear-gradient(145deg, #0c8599, #1098ad); }
-    .ico-blue { background: linear-gradient(145deg, #2b6cb0, #1971c2); }
-    .ico-purple { background: linear-gradient(145deg, #ae3ec9, #9c36b5); }
-    .ico-slate { background: linear-gradient(145deg, #495057, #343a40); }
-    .ico-amber { background: linear-gradient(145deg, #e8590c, #f08c00); }
-    .card h3 { margin: 0 0 0.35rem; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: center; gap: 0.4rem; }
-    .card h3 .arrow { color: var(--muted); transition: transform .18s; }
-    .card:hover h3 .arrow { transform: translate(3px,-3px); }
-    .card p { margin: 0; font-size: 0.875rem; color: var(--text-secondary); }
-
-    .section { margin-top: 3rem; }
-    .section-head { text-align: center; margin-bottom: 1.5rem; }
-    .section-head h3 { margin: 0; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
-    .section-head p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.9rem; }
-
-    .quickstart { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
-    @media (max-width: 860px) { .quickstart { grid-template-columns: 1fr; } }
-    .code-card {
-      background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius);
-      overflow: hidden; box-shadow: var(--shadow);
-    }
-    .code-card .code-head {
-      padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.78rem;
-      font-weight: 600; color: var(--muted); display: flex; align-items: center; gap: 0.5rem;
-    }
-    .code-card .code-head .dots { display: flex; gap: 5px; }
-    .code-card .code-head .dots i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-    .code-card pre {
-      margin: 0; padding: 1.1rem 1.2rem; font-family: var(--mono); font-size: 0.82rem;
-      line-height: 1.7; overflow-x: auto; color: var(--text);
-    }
-    .code-card .c { color: var(--muted); }
-    .code-card .k { color: var(--green); font-weight: 500; }
-
-    .footer {
-      position: relative; z-index: 1; max-width: 1120px; margin: 3rem auto 0; padding: 1.5rem;
-      border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
-      align-items: center; justify-content: center; color: var(--muted); font-size: 0.82rem;
-    }
-    .footer a { color: var(--text-secondary); text-decoration: none; }
-    .footer a:hover { color: var(--primary); }
-  </style>
+  <link rel="stylesheet" href="app.css" />
 </head>
 <body>
   <div class="ambient" aria-hidden="true"></div>
 
   <header class="header">
     <div class="header-inner">
-      <a class="brand" href="./index.html">
+      <a class="brand" href="#overview">
         <div class="brand-mark"><span>NSSM</span></div>
         <div>
           <h1>NSSM</h1>
           <p>Non-Sucking Service Manager</p>
         </div>
       </a>
+
+      <nav class="tabs" id="tabs" role="tablist" aria-label="Sections">
+        <button class="tab active" data-tab="overview" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/></svg>
+          Overview
+        </button>
+        <button class="tab" data-tab="release" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          Release
+        </button>
+        <button class="tab" data-tab="roadmap" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>
+          Roadmap
+        </button>
+        <button class="tab" data-tab="download" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download
+        </button>
+      </nav>
+      <div class="tabs-mobile">
+        <select id="tabs-select" aria-label="Section">
+          <option value="overview">Overview</option>
+          <option value="release">Release</option>
+          <option value="roadmap">Roadmap</option>
+          <option value="download">Download</option>
+        </select>
+      </div>
+
       <div class="header-actions">
-        <a class="btn" href="https://github.com/tuyndoan/nssm" target="_blank" rel="noopener">
+        <a class="btn btn-icon" href="https://github.com/tuyndoan/nssm" target="_blank" rel="noopener" aria-label="GitHub">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
-          GitHub
         </a>
         <button type="button" class="btn btn-icon" id="btn-theme" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -217,76 +76,63 @@
   </header>
 
   <main class="wrap">
-    <section class="hero">
-      <span class="badge-pill"><span class="dot"></span> Latest release · NSSM 2.25</span>
-      <h2>Run anything as a <span class="grad">Windows Service</span></h2>
-      <p class="lede">
-        NSSM wraps any application as a Windows Service and restarts it when it exits —
-        like <code>srvany</code> / <code>cygrunsrv</code>, but without the suck. GUI installer + full CLI.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/tuyndoan/nssm/releases/latest" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          Download 2.25
+    <!-- OVERVIEW -->
+    <section class="tabpane active" id="pane-overview" role="tabpanel">
+      <div class="hero">
+        <span class="badge-pill"><span class="dot"></span> Latest release · NSSM <span id="ov-version">2.25</span></span>
+        <h2>Run anything as a <span class="grad">Windows Service</span></h2>
+        <p class="lede">
+          NSSM wraps any application as a Windows Service and restarts it when it exits —
+          like <code>srvany</code> / <code>cygrunsrv</code>, but without the suck. GUI installer + full CLI.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="button" data-go="download">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download
+          </button>
+          <button class="btn" type="button" data-go="release">Release notes</button>
+          <button class="btn" type="button" data-go="roadmap">Roadmap</button>
+        </div>
+      </div>
+
+      <div class="cards">
+        <button class="card" type="button" data-go="release">
+          <div class="card-ico ico-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+          <h3>Release notes <span class="arrow">→</span></h3>
+          <p>Architecture, CLI commands, registry parameters, build steps — rendered inline, with search.</p>
+        </button>
+        <button class="card" type="button" data-go="roadmap">
+          <div class="card-ico ico-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div>
+          <h3>Roadmap &amp; backlog <span class="arrow">→</span></h3>
+          <p>Planned releases 2.26 → 2.31 with validation criteria and live progress.</p>
+        </button>
+        <button class="card" type="button" data-go="download">
+          <div class="card-ico ico-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div>
+          <h3>Download <span class="arrow">→</span></h3>
+          <p>Latest win32 + win64 binaries with SHA-256, pulled live from GitHub Releases.</p>
+        </button>
+        <a class="card" href="./manual.txt">
+          <div class="card-ico ico-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h3>Full manual <span class="arrow">↗</span></h3>
+          <p>Complete usage reference: install, edit, get/set, I/O redirection, hooks, exit actions.</p>
         </a>
-        <a class="btn" href="./release/2.25/index.html">Release notes</a>
-        <a class="btn" href="./roadmap/index.html">Roadmap</a>
+        <a class="card" href="https://github.com/tuyndoan/nssm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">
+          <div class="card-ico ico-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <h3>Changelog <span class="arrow">↗</span></h3>
+          <p>Full history in Keep a Changelog format, continuing from upstream 2.24.</p>
+        </a>
+        <a class="card" href="https://github.com/tuyndoan/nssm" target="_blank" rel="noopener">
+          <div class="card-ico ico-slate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+          <h3>Source &amp; build <span class="arrow">↗</span></h3>
+          <p>Standardized <code>src/</code> layout. Build with <code>build.cmd</code> (VS 2026 / MSVC v145).</p>
+        </a>
       </div>
-    </section>
 
-    <section class="cards">
-      <a class="card" href="./release/2.25/index.html">
-        <div class="card-ico ico-green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-        </div>
-        <h3>Release notes 2.25 <span class="arrow">↗</span></h3>
-        <p>Interactive overview: architecture, CLI commands, registry parameters, build steps — with search & dark mode.</p>
-      </a>
-      <a class="card" href="./roadmap/index.html">
-        <div class="card-ico ico-teal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg>
-        </div>
-        <h3>Roadmap &amp; backlog <span class="arrow">↗</span></h3>
-        <p>Planned releases 2.26 → 2.31 with validation criteria. Timeline, search, local progress ticks.</p>
-      </a>
-      <a class="card" href="./manual.txt">
-        <div class="card-ico ico-blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </div>
-        <h3>Full manual <span class="arrow">↗</span></h3>
-        <p>Complete usage reference: install, edit, get/set, start/stop, I/O redirection, hooks, exit actions.</p>
-      </a>
-      <a class="card" href="https://github.com/tuyndoan/nssm/blob/main/CHANGELOG.md" target="_blank" rel="noopener">
-        <div class="card-ico ico-purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <h3>Changelog <span class="arrow">↗</span></h3>
-        <p>Full history in Keep a Changelog format, continuing from upstream 2.24 plus the roadmap backlog.</p>
-      </a>
-      <a class="card" href="https://github.com/tuyndoan/nssm/releases/latest" target="_blank" rel="noopener">
-        <div class="card-ico ico-amber">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
-        </div>
-        <h3>Downloads <span class="arrow">↗</span></h3>
-        <p>Prebuilt win32 + win64 binaries (<code>nssm-2.25.zip</code>) with SHA-256 checksum on GitHub Releases.</p>
-      </a>
-      <a class="card" href="https://github.com/tuyndoan/nssm" target="_blank" rel="noopener">
-        <div class="card-ico ico-slate">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
-        </div>
-        <h3>Source &amp; build <span class="arrow">↗</span></h3>
-        <p>Standardized <code>src/</code> layout. Build with <code>build.cmd</code> (VS 2026 / MSVC v145, auto-detected via vswhere).</p>
-      </a>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <h3>Quick start</h3>
-        <p>Wrap an app in seconds, or build from source</p>
-      </div>
-      <div class="quickstart">
-        <div class="code-card">
-          <div class="code-head"><span class="dots"><i style="background:#f56565"></i><i style="background:#ecc94b"></i><i style="background:#48bb78"></i></span> Manage a service</div>
+      <section class="section">
+        <div class="section-head center"><h3>Quick start</h3><p>Wrap an app in seconds, or build from source</p></div>
+        <div class="quickstart">
+          <div class="code-card">
+            <div class="code-head"><span class="dots"><i style="background:#f56565"></i><i style="background:#ecc94b"></i><i style="background:#48bb78"></i></span> Manage a service</div>
 <pre><span class="c">:: install &amp; start</span>
 nssm <span class="k">install</span> MyApp "C:\app\app.exe" --flag
 nssm <span class="k">start</span>   MyApp
@@ -294,9 +140,9 @@ nssm <span class="k">start</span>   MyApp
 <span class="c">:: edit in GUI / tweak &amp; remove</span>
 nssm <span class="k">edit</span>    MyApp
 nssm <span class="k">remove</span>  MyApp confirm</pre>
-        </div>
-        <div class="code-card">
-          <div class="code-head"><span class="dots"><i style="background:#f56565"></i><i style="background:#ecc94b"></i><i style="background:#48bb78"></i></span> Build from source</div>
+          </div>
+          <div class="code-card">
+            <div class="code-head"><span class="dots"><i style="background:#f56565"></i><i style="background:#ecc94b"></i><i style="background:#48bb78"></i></span> Build from source</div>
 <pre><span class="c">:: 32-bit (default) / 64-bit</span>
 build.cmd
 build.cmd <span class="k">x64</span>
@@ -306,9 +152,19 @@ pack.cmd
 
 <span class="c">:: quick check</span>
 build\out\x86\nssm.exe <span class="k">version</span></pre>
+          </div>
         </div>
-      </div>
+      </section>
     </section>
+
+    <!-- RELEASE -->
+    <section class="tabpane" id="pane-release" role="tabpanel" aria-label="Release notes"></section>
+
+    <!-- ROADMAP -->
+    <section class="tabpane" id="pane-roadmap" role="tabpanel" aria-label="Roadmap"></section>
+
+    <!-- DOWNLOAD -->
+    <section class="tabpane" id="pane-download" role="tabpanel" aria-label="Download"></section>
   </main>
 
   <footer class="footer">
@@ -319,15 +175,8 @@ build\out\x86\nssm.exe <span class="k">version</span></pre>
     <a href="https://github.com/tuyndoan/nssm" target="_blank" rel="noopener">GitHub</a>
   </footer>
 
-  <script>
-    // Initial theme applied by the blocking <head> script (no flash); this only binds the toggle.
-    (function () {
-      var root = document.documentElement;
-      document.getElementById("btn-theme").addEventListener("click", function () {
-        root.classList.toggle("dark");
-        localStorage.setItem("nssm-theme", root.classList.contains("dark") ? "dark" : "light");
-      });
-    })();
-  </script>
+  <script src="release/2.25/release-data.js"></script>
+  <script src="roadmap/roadmap-data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

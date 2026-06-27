@@ -116,13 +116,19 @@ nssm remove  <service> confirm
 
 ## Documentation
 
-The `docs/` folder is published with **GitHub Pages** — browse the interactive site at
-**https://tuyndoan.github.io/nssm/** (landing page links to everything below):
+The `docs/` folder is published with **GitHub Pages** as a single-page hub at
+**https://tuyndoan.github.io/nssm/** — one page, four tabs (no page reloads):
 
-- **Release notes 2.25:** [`docs/release/2.25/index.html`](docs/release/2.25/index.html) · [online](https://tuyndoan.github.io/nssm/release/2.25/)
-- **Roadmap / backlog:** [`docs/roadmap/index.html`](docs/roadmap/index.html) · [online](https://tuyndoan.github.io/nssm/roadmap/)
+- **Overview** — intro, quick start, navigation.
+- **Release** — release notes rendered inline from `docs/release/<x.y.z>/release-data.js`.
+- **Roadmap** — backlog/progress rendered inline from `docs/roadmap/roadmap-data.js`.
+- **Download** — latest binaries pulled live from the GitHub Releases API (with a direct-link fallback).
+
+Other references:
+
 - **Changelog:** [`CHANGELOG.md`](CHANGELOG.md)
 - **Full manual:** [`docs/manual.txt`](docs/manual.txt) · [online](https://tuyndoan.github.io/nssm/manual.txt)
+- Standalone interactive pages remain at `docs/release/<x.y.z>/` and `docs/roadmap/` (also the source of the inline data).
 
 > To enable Pages: repo **Settings → Pages → Source: GitHub Actions** (the
 > `pages` workflow deploys `docs/` on every push to `main`).
