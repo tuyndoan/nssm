@@ -7,8 +7,10 @@
 *.sln   text eol=crlf
 *.vcproj text eol=crlf
 *.vcxproj text eol=crlf
-*.rc    text eol=crlf
-*.mc    text eol=crlf
+# Message/resource scripts are UTF-16LE on disk; mc.exe requires that encoding.
+# Do not let Git normalize line endings (breaks mc on CI checkout).
+*.rc    -text
+*.mc    -text
 
 # C/C++ sources (LF in repo, normalized on checkout).
 *.c     text

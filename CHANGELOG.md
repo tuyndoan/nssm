@@ -38,7 +38,11 @@ Service and monitor/restart it on exit. Repository layout is standardized.
 - **Toolchain:** build & test with **Visual Studio 2026** (toolset **v145**, MSVC 14.5x).
 - Upstream usage manual (`README.txt`) moved to [`docs/manual.txt`](docs/manual.txt).
 - `.gitignore` ignores `build/`, `dist/`, generated files in `src/gen/`, compiler/linker intermediates, VS user files, and OS/editor cruft.
-- `.gitattributes` normalizes line endings (`text=auto`), forces CRLF for Windows tooling (`.cmd`/`.bat`/`.sln`/`.vcproj`/`.rc`/`.mc`), and marks binary assets (`.ico`/`.bin`/`.exe`/`.pdb`/images).
+- `.gitattributes` normalizes line endings (`text=auto`), forces CRLF for Windows tooling (`.cmd`/`.bat`/`.sln`/`.vcproj`), and marks binary assets (`.ico`/`.bin`/`.exe`/`.pdb`/images). `messages.mc` and `nssm.rc` are `-text` (UTF-16LE; must not be CRLF-normalized).
+
+### Fixed
+
+- **CI `mc` failure:** GitHub Actions checkout no longer corrupts `messages.mc` / `nssm.rc` encoding; `mc.exe` compiles the message catalog again.
 
 ### Removed
 
