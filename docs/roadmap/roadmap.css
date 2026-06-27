@@ -87,7 +87,7 @@ body, .header, .nav-card, .sidebar-progress, .stat-card, .pipeline-wrap,
   border-bottom: 1px solid var(--border);
 }
 .header-inner {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
   height: 100%;
@@ -99,8 +99,8 @@ body, .header, .nav-card, .sidebar-progress, .stat-card, .pipeline-wrap,
 .brand-mark {
   width: 42px; height: 42px;
   border-radius: 12px;
-  background: linear-gradient(145deg, #2b6cb0, #6741d9);
-  box-shadow: 0 4px 14px var(--primary-glow);
+  background: linear-gradient(145deg, #2f9e44, #0c8599);
+  box-shadow: 0 4px 14px rgb(47 158 68 / 25%);
   display: grid; place-items: center;
 }
 .brand-mark span { color: #fff; font-weight: 800; font-size: 10px; letter-spacing: 0.06em; }
@@ -168,12 +168,12 @@ html:not(.dark) .icon-moon { display: none; }
 .shell {
   position: relative;
   z-index: 1;
-  max-width: 1400px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2.5rem 1.5rem;
   display: grid;
   grid-template-columns: 260px 1fr;
-  gap: 1.75rem;
+  gap: 2.5rem;
   align-items: start;
 }
 @media (max-width: 1024px) {
@@ -265,12 +265,12 @@ html:not(.dark) .icon-moon { display: none; }
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) + 4px);
   box-shadow: var(--shadow-lg);
-  padding: 1.75rem 2rem;
-  margin-bottom: 1.5rem;
+  padding: 2.25rem 2.5rem;
+  margin-bottom: 0.5rem;
   position: relative;
   overflow: hidden;
 }
-.hero-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem; align-items: start; position: relative; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2.5rem; align-items: start; position: relative; }
 .eyebrow {
   display: inline-block;
   font-size: 0.68rem;
@@ -325,8 +325,8 @@ html:not(.dark) .icon-moon { display: none; }
 .released-card::after {
   content: "SHIPPED";
   position: absolute; top: 1rem; right: 1rem;
-  font-size: 0.6rem; font-weight: 800; letter-spacing: 0.15em;
-  color: var(--released); opacity: 0.5;
+  font-size: 0.58rem; font-weight: 800; letter-spacing: 0.15em;
+  color: var(--released); opacity: 0.28;
 }
 .released-card h2 { margin: 0 0 0.35rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 .latest-badge {
@@ -375,9 +375,9 @@ html:not(.dark) .icon-moon { display: none; }
 
 a.pipe-node { text-decoration: none; color: inherit; flex: 1; min-width: 0; }
 
-.section-head { margin-bottom: 1rem; }
-.section-head h2 { margin: 0 0 0.25rem; font-size: 1.15rem; letter-spacing: -0.02em; }
-.section-head p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.section-head { margin: 2.75rem 0 1.5rem; }
+.section-head h2 { margin: 0 0 0.35rem; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.03em; }
+.section-head p { margin: 0; font-size: 0.9rem; color: var(--muted); }
 
 .arch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
 @media (max-width: 768px) { .arch { grid-template-columns: 1fr; } }
