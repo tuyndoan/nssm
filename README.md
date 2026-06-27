@@ -116,10 +116,16 @@ nssm remove  <service> confirm
 
 ## Documentation
 
-- **Release notes 2.25:** [`docs/release/2.25/index.html`](docs/release/2.25/index.html)
-- **Roadmap / backlog:** [`docs/roadmap/index.html`](docs/roadmap/index.html)
+The `docs/` folder is published with **GitHub Pages** — browse the interactive site at
+**https://tuyndoan.github.io/nssm/** (landing page links to everything below):
+
+- **Release notes 2.25:** [`docs/release/2.25/index.html`](docs/release/2.25/index.html) · [online](https://tuyndoan.github.io/nssm/release/2.25/)
+- **Roadmap / backlog:** [`docs/roadmap/index.html`](docs/roadmap/index.html) · [online](https://tuyndoan.github.io/nssm/roadmap/)
 - **Changelog:** [`CHANGELOG.md`](CHANGELOG.md)
-- **Full manual:** [`docs/manual.txt`](docs/manual.txt)
+- **Full manual:** [`docs/manual.txt`](docs/manual.txt) · [online](https://tuyndoan.github.io/nssm/manual.txt)
+
+> To enable Pages: repo **Settings → Pages → Source: GitHub Actions** (the
+> `pages` workflow deploys `docs/` on every push to `main`).
 
 ## Licence
 
