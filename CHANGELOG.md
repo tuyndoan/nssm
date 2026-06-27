@@ -45,7 +45,7 @@ Service and monitor/restart it on exit. Repository layout is standardized.
 - **CI `mc` failure:** GitHub Actions checkout no longer corrupts `messages.mc` / `nssm.rc` encoding; `mc.exe` compiles the message catalog again.
 - **CI artifacts** now include the version in their name (`nssm-<version>-x86` / `nssm-<version>-x64`); on `v*` tag builds the version comes from the tag.
 - **Release notes:** the release job uses `docs/release/<version>/RELEASE.md` as the GitHub Release body when present (falls back to an auto-generated note otherwise). The `docs-update-on-change` rule now requires this file per release.
-- **GitHub Pages site:** `docs/index.html` landing page (overview, downloads, quick start, dark mode) linking the interactive release notes, roadmap, manual, and changelog; published via `.github/workflows/pages.yml` (deploys `docs/` on push to `main`). `CHANGELOG` links in the HTML pages now point to GitHub (work off-repo), and roadmap/release pages have a **Home** link back to the landing page.
+- **GitHub Pages site:** `docs/index.html` landing page (overview, downloads, quick start, dark mode) linking the interactive release notes, roadmap, manual, and changelog; published via `.github/workflows/pages.yml` (deploys `docs/` on push to `main`). `CHANGELOG` links in the HTML pages now point to GitHub (work off-repo), and roadmap/release pages have a **Home** link back to the landing page. The `docs-update-on-change` rule now lists `docs/index.html` as a maintained target (update on version/download/link/messaging changes).
 
 ### Removed
 

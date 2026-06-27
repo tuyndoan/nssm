@@ -12,13 +12,17 @@ Any change to the repository (code, build, structure, behavior) **must** be refl
 | `CHANGELOG.md` | Always — add an entry under the current unreleased/version section (Added / Changed / Removed / Fixed / Known issues). Source of truth. |
 | `README.md` | Layout, build steps, usage, requirements, or links changed. |
 | `docs/` | Behavior/feature/version changes mirrored into the relevant page (see below). |
+| `docs/index.html` | Version, downloads, quick-start, doc links, or top-level messaging changed (GitHub Pages landing). |
 
 ## docs/ targets
 
+- `docs/index.html` — **GitHub Pages landing page** (https://tuyndoan.github.io/nssm/). Update whenever the current version, download links, quick-start commands, doc links, or top-level messaging change. Published via `.github/workflows/pages.yml` (deploys `docs/` on push to `main`). Keep its self-contained styling/dark-mode in sync with the roadmap/release pages.
 - `docs/roadmap/roadmap-data.js` — backlog/version/task changes (also see `roadmap-backlog-sync.mdc`).
 - `docs/release/<x.y.z>/release-data.js` — interactive release-notes content (HTML viewer) for the version.
 - `docs/release/<x.y.z>/RELEASE.md` — **GitHub Release body**. CI (`.github/workflows/build.yml`) publishes this verbatim via `gh release create --notes-file` on a `v<x.y.z>` tag. Keep it in sync with the `CHANGELOG.md` section for that version.
 - `docs/manual.txt` — usage/CLI/registry behavior changes.
+
+> **Pages note:** links inside `docs/*.html` must work when served from Pages (root = `docs/`). Reference files **outside** `docs/` (e.g. `CHANGELOG.md`) via their GitHub URL — `https://github.com/tuyndoan/nssm/blob/main/<path>` — not a relative `../../` path. New pages need a **Home** link back to `docs/index.html`. If a binary/asset must be skipped by Pages, remember `docs/.nojekyll` disables Jekyll processing.
 
 ## Release notes (per version)
 
@@ -41,5 +45,7 @@ When cutting a new version `<x.y.z>`, before tagging `v<x.y.z>`:
 - [ ] `CHANGELOG.md` entry added/updated.
 - [ ] `README.md` updated if build/layout/usage/links changed.
 - [ ] Matching `docs/` page (roadmap / release / manual) updated.
+- [ ] `docs/index.html` landing page updated if version, downloads, quick start, links, or messaging changed.
 - [ ] For a release: `docs/release/<x.y.z>/RELEASE.md` exists and matches the CHANGELOG section.
+- [ ] Pages links valid (off-repo files use GitHub URLs; new pages link Home).
 - [ ] Versions and links consistent everywhere; English only.
