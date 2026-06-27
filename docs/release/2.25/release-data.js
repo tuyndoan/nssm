@@ -18,6 +18,16 @@ window.NSSM_RELEASE_225 = {
     ],
   },
 
+  // Static fallback so the Download tab still shows binaries + checksum when the
+  // GitHub API is rate-limited or offline. Keep in sync with the v2.25 release assets.
+  download: {
+    tag: "v2.25",
+    zip: "nssm-2.25.zip",
+    zipSize: "355 KB",
+    sha256: "0e350a10805bfcd82a9f1cb3f32ed93093f0cb0aee0a4fe74e5f41bad52a42af",
+    base: "https://github.com/tuyndoan/nssm/releases/download/v2.25/",
+  },
+
   components: [
     { name: "CLI / Dispatcher", file: "cli/nssm.cpp", role: "Parse commands, elevate, dispatch service control", color: "#2b6cb0" },
     { name: "Service host", file: "service/service.cpp · process.cpp", role: "service_main monitors child: restart, throttle, I/O, hooks", color: "#6741d9" },

@@ -87,12 +87,12 @@
       }).join("") + "</div>");
 
     html += section("Parameters (registry / get&middot;set)", "Under HKLM\\SYSTEM\\CurrentControlSet\\Services\\&lt;svc&gt;\\Parameters",
-      REL.registryGroups.map(function (g) {
+      '<div class="param-grid">' + REL.registryGroups.map(function (g) {
         return '<div class="group"><h4>' + esc(g.group) + "</h4>" +
           '<div class="chips">' + g.params.map(function (p) {
             return '<span class="chip" data-search="' + esc(p + " " + g.group) + '">' + esc(p) + "</span>";
           }).join("") + "</div></div>";
-      }).join(""));
+      }).join("") + "</div>");
 
     html += section("Features", "Service monitoring &amp; management inherited from upstream 2.24",
       '<ul class="feat-list">' + REL.features.map(function (f) {
@@ -100,11 +100,11 @@
       }).join("") + "</ul>");
 
     html += section("Source files", "14 .cpp files (with matching headers)",
-      '<table class="mini-table"><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>' +
+      '<div class="table-wrap"><table class="mini-table"><thead><tr><th>File</th><th>Role</th></tr></thead><tbody>' +
       REL.modules.map(function (md) {
         return '<tr data-search="' + esc(md.name + " " + md.role) + '"><td><strong>' + esc(md.name) +
           "</strong></td><td>" + esc(md.role) + "</td></tr>";
-      }).join("") + "</tbody></table>");
+      }).join("") + "</tbody></table></div>");
 
     html += section("Build", "Release win32 + x64 with Visual Studio 2026 (MSVC v145)",
       '<div class="step-list">' + REL.buildSteps.map(function (b) {
@@ -121,7 +121,7 @@
       '<ul class="credit-list">' + REL.credits.map(function (c) {
         return "<li>" + esc(c) + "</li>";
       }).join("") + "</ul>" +
-      '<p style="margin-top:1rem"><a class="btn" href="https://github.com/tuyndoan/nssm/blob/main/CHANGELOG.md#225--2026-06-26" target="_blank" rel="noopener">Full changelog on GitHub &rarr;</a></p>");
+      '<p style="margin-top:1rem"><a class="btn" href="https://github.com/tuyndoan/nssm/blob/main/CHANGELOG.md#225--2026-06-26" target="_blank" rel="noopener">Full changelog on GitHub &rarr;</a></p>');
 
     pane.innerHTML =
       '<div class="section-head"><h3>Release notes &middot; ' + esc(m.version) + "</h3>" +
@@ -246,7 +246,41 @@
     return '<div class="asset-ico' + (sha ? " sha" : "") + '">' + icon + "</div>";
   }
 
+  var DL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>';
+
+  function dlData() {
+    return (REL && REL.download) || {
+      tag: "v2.25", zip: "nssm-2.25.zip", zipSize: "",
+      sha256: "", base: "https://github.com/tuyndoan/nssm/releases/latest",
+    };
+  }
+  function verNum() { return (REL && REL.meta && REL.meta.version) || "2.25"; }
+
+  function assetRow(name, url, meta) {
+    return '<div class="asset-row">' + assetIcon(name) +
+      '<div class="asset-info"><div class="asset-name">' + esc(name) + "</div>" +
+      '<div class="asset-meta">' + (meta || "") + "</div></div>" +
+      '<a class="btn btn-primary asset-dl" href="' + esc(url) + '">' + DL_SVG + "Get</a>" +
+      "</div>";
+  }
+
+  function copyBtn(text, label) {
+    return '<button type="button" class="copy-btn" data-copy="' + esc(text) + '" aria-label="Copy ' + esc(label) + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+      "<span>Copy</span></button>";
+  }
+
+  function shaBox() {
+    var d = dlData();
+    if (!d.sha256) return "";
+    return '<div class="sha-box"><div class="sha-head"><span class="sha-label">SHA-256</span>' +
+      '<code class="sha-file">' + esc(d.zip) + "</code></div>" +
+      '<div class="sha-row"><code class="sha-val">' + esc(d.sha256) + "</code>" +
+      copyBtn(d.sha256, "SHA-256 checksum") + "</div></div>";
+  }
+
   function downloadSidebar() {
+    var v = verNum();
     return '<div class="dl-side">' +
       '<div class="panel"><h4>What\'s included</h4><ul>' +
         "<li><code>win32/nssm.exe</code> -- 32-bit binary</li>" +
@@ -254,13 +288,42 @@
         "<li><code>README.txt</code> -- usage manual</li>" +
         "<li><code>.sha256</code> -- checksum for the archive</li>" +
       "</ul></div>" +
+      '<div class="panel"><h4>Quick install</h4>' +
+        '<pre class="verify-pre">Expand-Archive nssm-' + v + ".zip -DestinationPath nssm\n" +
+        ".\\nssm\\win64\\nssm.exe install \\\n  MyService C:\\path\\to\\app.exe</pre>" +
+      "</div>" +
       '<div class="panel"><h4>Verify checksum</h4>' +
-        '<pre class="verify-pre">(Get-FileHash nssm-2.25.zip `\n  -Algorithm SHA256).Hash\ntype nssm-2.25.zip.sha256</pre>' +
+        '<pre class="verify-pre">(Get-FileHash nssm-' + v + ".zip `\n  -Algorithm SHA256).Hash\ntype nssm-" + v + ".zip.sha256</pre>" +
       "</div>" +
       '<div class="panel"><h4>Need details?</h4>' +
         '<p class="dl-note" style="margin:0 0 0.75rem">Older versions, full notes and source archives live on GitHub.</p>' +
         '<a class="btn" href="https://github.com/tuyndoan/nssm/releases" target="_blank" rel="noopener">All releases on GitHub &rarr;</a>' +
       "</div></div>";
+  }
+
+  function wireCopy() {
+    document.querySelectorAll("#pane-download .copy-btn").forEach(function (b) {
+      if (b._wired) return; b._wired = true;
+      b.addEventListener("click", function () {
+        var text = b.getAttribute("data-copy");
+        var span = b.querySelector("span");
+        var done = function () {
+          var prev = span ? span.textContent : "";
+          if (span) span.textContent = "Copied";
+          b.classList.add("ok");
+          setTimeout(function () { if (span) span.textContent = prev; b.classList.remove("ok"); }, 1400);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () {});
+        } else {
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); done(); } catch (e) {}
+          document.body.removeChild(ta);
+        }
+      });
+    });
   }
 
   function renderDownload() {
@@ -271,6 +334,7 @@
       '<div class="dl-grid"><div class="panel" id="dl-main">' +
         '<div class="state"><div class="spinner"></div>Fetching latest release&hellip;</div>' +
       "</div>" + downloadSidebar() + "</div>";
+    wireCopy();
 
     fetch("https://api.github.com/repos/" + REPO + "/releases/latest", {
       headers: { Accept: "application/vnd.github+json" },
@@ -283,7 +347,7 @@
   function renderReleaseAssets(rel) {
     var box = el("dl-main");
     if (!box) return;
-    var tag = rel.tag_name || "v2.25";
+    var tag = rel.tag_name || dlData().tag;
     var assets = (rel.assets || []).slice().sort(function (a, b) {
       var az = /\.(sha256|txt|asc|sig)$/i.test(a.name) ? 1 : 0;
       var bz = /\.(sha256|txt|asc|sig)$/i.test(b.name) ? 1 : 0;
@@ -293,13 +357,8 @@
     var rows;
     if (assets.length) {
       rows = assets.map(function (a) {
-        return '<div class="asset-row">' + assetIcon(a.name) +
-          '<div class="asset-info"><div class="asset-name">' + esc(a.name) + "</div>" +
-          '<div class="asset-meta">' + fmtSize(a.size) +
-            (a.download_count ? " &middot; " + a.download_count + " downloads" : "") + "</div></div>" +
-          '<a class="btn btn-primary asset-dl" href="' + esc(a.browser_download_url) + '">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Get</a>' +
-          "</div>";
+        var meta = fmtSize(a.size) + (a.download_count ? " &middot; " + a.download_count + " downloads" : "");
+        return assetRow(a.name, a.browser_download_url, meta);
       }).join("");
     } else {
       rows = '<p class="dl-note">This release has no attached binaries yet. Build from source with <code>build.cmd</code>, or check back after CI finishes packaging.</p>';
@@ -309,21 +368,25 @@
       '<div class="dl-head"><span class="dl-tag">' + esc(rel.name || tag) + "</span>" +
         '<span class="dl-latest">Latest</span></div>' +
       '<p class="dl-date">Published ' + fmtDate(rel.published_at) + "</p>" +
-      rows +
+      rows + shaBox() +
       '<p style="margin-top:1.25rem"><a class="btn" href="' + esc(rel.html_url) +
         '" target="_blank" rel="noopener">Full release notes on GitHub &rarr;</a></p>';
+    wireCopy();
   }
 
   function renderDownloadFallback() {
     var box = el("dl-main");
     if (!box) return;
+    var d = dlData();
+    var rows = assetRow(d.zip, d.base + d.zip, d.zipSize || "ZIP archive") +
+      assetRow(d.zip + ".sha256", d.base + d.zip + ".sha256", "SHA-256 checksum");
     box.innerHTML =
-      '<div class="dl-head"><span class="dl-tag">NSSM ' + esc((REL && REL.meta.version) || "2.25") + "</span>" +
+      '<div class="dl-head"><span class="dl-tag">NSSM ' + esc(verNum()) + "</span>" +
         '<span class="dl-latest">Latest</span></div>' +
-      '<p class="dl-date">Live release info couldn\'t be loaded (GitHub API limit or offline).</p>' +
-      '<p class="dl-note" style="margin-bottom:1.25rem">Grab the binaries directly from the GitHub Releases page -- it always has the latest <code>nssm-&lt;version&gt;.zip</code> and checksum.</p>' +
-      '<a class="btn btn-primary" href="https://github.com/tuyndoan/nssm/releases/latest" target="_blank" rel="noopener">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Open latest release</a>';
+      '<p class="dl-date">Direct links (live GitHub data unavailable -- API limit or offline).</p>' +
+      rows + shaBox() +
+      '<p style="margin-top:1.25rem"><a class="btn" href="https://github.com/tuyndoan/nssm/releases/latest" target="_blank" rel="noopener">All releases on GitHub &rarr;</a></p>';
+    wireCopy();
     rendered.download = true;
   }
 
