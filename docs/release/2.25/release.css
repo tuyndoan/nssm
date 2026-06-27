@@ -46,6 +46,12 @@ body {
   background: var(--bg);
 }
 
+/* Smooth light/dark toggle (initial theme is set pre-paint, so no load flash). */
+body, .header, .nav-card, .hero, .section, .svc, .route-card, .project-group,
+.test-row, .stat, .diagram-wrap, .project-table, .stack-table, .btn, input {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+}
+
 .ambient {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background:

@@ -54,6 +54,13 @@ body {
   min-height: 100vh;
 }
 
+/* Smooth light/dark toggle (initial theme is set pre-paint, so no load flash). */
+body, .header, .nav-card, .sidebar-progress, .stat-card, .pipeline-wrap,
+.released-card, .arch-card, .flow-panel, .version-block, .track, .task,
+.v-preview, .checklist-section, .check-table, .btn, input, .meta-chip {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+}
+
 .ambient {
   position: fixed;
   inset: 0;

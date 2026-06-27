@@ -175,15 +175,13 @@
   function toggleTheme() {
     document.documentElement.classList.toggle("dark");
     localStorage.setItem(
-      "nssm-release-theme",
+      "nssm-theme",
       document.documentElement.classList.contains("dark") ? "dark" : "light",
     );
   }
 
   function init() {
-    if (localStorage.getItem("nssm-release-theme") === "dark") {
-      document.documentElement.classList.add("dark");
-    }
+    // Initial theme is applied by a blocking <head> script (no flash); shared key "nssm-theme".
     renderNav();
     renderHero();
     renderArchitecture();

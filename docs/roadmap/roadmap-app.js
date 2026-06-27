@@ -520,15 +520,13 @@
   function toggleTheme() {
     document.documentElement.classList.toggle("dark");
     localStorage.setItem(
-      "nssm-roadmap-theme",
+      "nssm-theme",
       document.documentElement.classList.contains("dark") ? "dark" : "light",
     );
   }
 
   function init() {
-    if (localStorage.getItem("nssm-roadmap-theme") === "dark") {
-      document.documentElement.classList.add("dark");
-    }
+    // Initial theme is applied by a blocking <head> script (no flash); shared key "nssm-theme".
     document.getElementById("chain-text").textContent = data.meta.chain;
     renderReleased();
     renderPipeline();

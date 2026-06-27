@@ -6,6 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NSSM — the Non-Sucking Service Manager</title>
   <meta name="description" content="NSSM runs any application as a Windows Service and restarts it when it exits. GUI installer + full CLI. Continues upstream 2.24; modernized 2.25 (VS 2026 / MSVC v145)." />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    // Apply saved theme before first paint (no flash). Shared key across all docs pages.
+    (function () {
+      try {
+        var k = "nssm-theme", s = localStorage.getItem(k);
+        if (s === "dark" || (!s && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -49,6 +61,9 @@
     body {
       margin: 0; font-family: var(--font); font-size: 15px; line-height: 1.6;
       color: var(--text); background: var(--bg);
+    }
+    body, .header, .card, .code-card, .badge-pill, .btn {
+      transition: background-color .25s ease, border-color .25s ease, color .25s ease;
     }
     a { color: inherit; }
     .ambient {
@@ -305,17 +320,12 @@ build\out\x86\nssm.exe <span class="k">version</span></pre>
   </footer>
 
   <script>
+    // Initial theme applied by the blocking <head> script (no flash); this only binds the toggle.
     (function () {
-      var key = "nssm-theme";
       var root = document.documentElement;
-      var saved = localStorage.getItem(key);
-      if (saved === "dark" || (!saved && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-        root.classList.add("dark");
-      }
-      var btn = document.getElementById("btn-theme");
-      btn.addEventListener("click", function () {
+      document.getElementById("btn-theme").addEventListener("click", function () {
         root.classList.toggle("dark");
-        localStorage.setItem(key, root.classList.contains("dark") ? "dark" : "light");
+        localStorage.setItem("nssm-theme", root.classList.contains("dark") ? "dark" : "light");
       });
     })();
   </script>
