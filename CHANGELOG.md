@@ -43,6 +43,7 @@ Service and monitor/restart it on exit. Repository layout is standardized.
 ### Fixed
 
 - **CI `mc` failure:** GitHub Actions checkout no longer corrupts `messages.mc` / `nssm.rc` encoding; `mc.exe` compiles the message catalog again.
+- **CI artifacts** now include the version in their name (`nssm-<version>-x86` / `nssm-<version>-x64`); on `v*` tag builds the version comes from the tag.
 
 ### Removed
 

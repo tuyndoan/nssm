@@ -41,10 +41,18 @@ jobs:
         shell: cmd
         run: build\out\${{ matrix.platform }}\nssm.exe version
 
+      - name: Resolve version
+        id: ver
+        shell: pwsh
+        run: |
+          $v = (Get-Content VERSION -Raw).Trim()
+          if ($env:GITHUB_REF -like 'refs/tags/v*') { $v = $env:GITHUB_REF_NAME.TrimStart('v') }
+          "version=$v" >> $env:GITHUB_OUTPUT
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: nssm-${{ matrix.platform }}
+          name: nssm-${{ steps.ver.outputs.version }}-${{ matrix.platform }}
           path: build/out/${{ matrix.platform }}/nssm.exe
           if-no-files-found: error
 
