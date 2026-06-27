@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!-- NSSM docs — Public Domain. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NSSM — Roadmap & Backlog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="roadmap.css" />
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark"><span>NSSM</span></div>
+        <div>
+          <h1>NSSM</h1>
+          <p>Product Roadmap · Backlog 2.26 → 2.31</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="search" placeholder="Search tasks, validate, vcxproj…" autocomplete="off" />
+        </div>
+        <label class="toggle-pill" title="Pending tasks only">
+          <input type="checkbox" id="pending-only" />
+          <span>Pending</span>
+        </label>
+        <button type="button" class="btn btn-ghost" id="btn-all">All</button>
+        <button type="button" class="btn btn-ghost" id="btn-export">Export</button>
+        <div class="shipped-links" id="header-shipped" aria-label="Shipped releases"></div>
+        <button type="button" class="btn btn-icon" id="btn-theme" aria-label="Dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-progress">
+        <svg class="ring-chart" viewBox="0 0 120 120" id="ring-chart">
+          <circle class="ring-bg" cx="60" cy="60" r="52" />
+          <circle class="ring-fill" cx="60" cy="60" r="52" id="ring-fill" />
+        </svg>
+        <div class="ring-label">
+          <strong id="ring-pct">0%</strong>
+          <span>Overall progress</span>
+        </div>
+      </div>
+      <nav class="nav-card">
+        <h2>Jump to</h2>
+        <div id="nav-versions"></div>
+      </nav>
+      <nav class="nav-card nav-shipped-card">
+        <h2>Shipped</h2>
+        <div id="nav-shipped"></div>
+      </nav>
+      <div class="nav-card filter-card">
+        <h2>Filter theme</h2>
+        <div class="theme-chips" id="theme-chips"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Tuyn Doan · Public Domain</span>
+            <h2>Development roadmap</h2>
+            <p class="hero-desc" id="chain-text"></p>
+            <div class="hero-stats">
+              <div class="stat-card">
+                <span class="stat-val" id="stat-done">0</span>
+                <span class="stat-lbl">Done</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-val" id="stat-total">0</span>
+                <span class="stat-lbl">Total tasks</span>
+              </div>
+              <div class="stat-card accent">
+                <span class="stat-val" id="stat-versions">6</span>
+                <span class="stat-lbl">Planned releases</span>
+              </div>
+            </div>
+          </div>
+          <div class="pipeline-wrap">
+            <h3 class="pipeline-title">Release pipeline</h3>
+            <div class="pipeline" id="pipeline"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="released-wrap">
+        <div class="released-grid" id="released-grid"></div>
+      </div>
+
+      <section class="section-head">
+        <h2>Runtime components</h2>
+        <p>CLI · Service host · GUI roles before diving into each version</p>
+      </section>
+      <section class="arch" id="arch-grid"></section>
+
+      <div class="flow-panel">
+        <div class="flow-panel-head">
+          <h3>Service lifecycle</h3>
+          <span class="flow-badge">2.29 stop sequence · AppExit handling</span>
+        </div>
+        <div class="flow-canvas" id="flow-canvas"></div>
+      </div>
+
+      <section class="section-head">
+        <h2>Version backlog</h2>
+        <p>Each task has a <strong>Validate</strong> criterion — local ticks saved in the browser</p>
+      </section>
+      <div class="version-grid" id="version-grid"></div>
+      <div id="versions"></div>
+
+      <section class="checklist-section">
+        <div class="checklist-head">
+          <h2>Release validation checklist</h2>
+          <p>Milestone gates before writing Added entries in CHANGELOG</p>
+        </div>
+        <div class="table-scroll">
+          <table class="check-table">
+            <tbody id="check-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span id="footer-shipped"></span>
+    <span>·</span>
+    <a href="../../CHANGELOG.md#roadmap--backlog">CHANGELOG.md</a>
+    <span>·</span>
+    <span>Tick = localStorage</span>
+    <span>·</span>
+    <span>Public Domain</span>
+  </footer>
+
+  <script src="roadmap-data.js"></script>
+  <script src="roadmap-app.js"></script>
+</body>
+</html>

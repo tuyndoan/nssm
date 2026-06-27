@@ -1,0 +1,35 @@
+---
+description: Every change must update README.md, CHANGELOG.md, and docs/
+alwaysApply: true
+---
+
+# Keep docs in sync with every change
+
+Any change to the repository (code, build, structure, behavior) **must** be reflected in:
+
+| File / dir | Update when |
+| --- | --- |
+| `CHANGELOG.md` | Always — add an entry under the current unreleased/version section (Added / Changed / Removed / Fixed / Known issues). Source of truth. |
+| `README.md` | Layout, build steps, usage, requirements, or links changed. |
+| `docs/` | Behavior/feature/version changes mirrored into the relevant page (see below). |
+
+## docs/ targets
+
+- `docs/roadmap/roadmap-data.js` — backlog/version/task changes (also see `roadmap-backlog-sync.mdc`).
+- `docs/release/<x.y.z>/release-data.js` — release-notes content for the current version.
+- `docs/manual.txt` — usage/CLI/registry behavior changes.
+
+## Rules
+
+1. **No silent changes.** If you touch behavior, build, or structure, update `CHANGELOG.md` in the same change set.
+2. **Versioning continues from upstream 2.24** — next is `2.25`, then `2.26`, … (no fork bump to 3.x).
+3. **English only** across `README.md`, `CHANGELOG.md`, and `docs/`.
+4. **Maintainer:** Tuyn Doan.
+5. Before finishing, verify links and version numbers are consistent across all three.
+
+## Quick checklist
+
+- [ ] `CHANGELOG.md` entry added/updated.
+- [ ] `README.md` updated if build/layout/usage/links changed.
+- [ ] Matching `docs/` page (roadmap / release / manual) updated.
+- [ ] Versions and links consistent everywhere; English only.

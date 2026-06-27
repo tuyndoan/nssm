@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- NSSM docs — Public Domain. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NSSM 2.25 — Release Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="release.css" />
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-mark"><span>NSSM</span></div>
+        <div>
+          <h1>NSSM</h1>
+          <p>Release Notes · 2.25</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="search" placeholder="Search commands, parameters, modules…" autocomplete="off" />
+        </div>
+        <a class="btn" href="../../roadmap/index.html">Roadmap</a>
+        <a class="btn" href="../../../CHANGELOG.md#225--2026-06-26">CHANGELOG</a>
+        <button type="button" class="btn btn-icon" id="btn-theme" aria-label="Dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="nav-card">
+        <h2>Contents</h2>
+        <div id="nav-sections"></div>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="hero" id="overview">
+        <div class="hero-grid">
+          <div>
+            <div class="version-badge" id="hero-version">2.25</div>
+            <p class="version-date" id="hero-date"></p>
+            <p class="hero-desc" id="hero-summary"></p>
+            <div class="hero-stats" id="hero-stats"></div>
+          </div>
+          <div class="service-cards" id="component-cards"></div>
+        </div>
+      </section>
+
+      <section class="section" id="architecture">
+        <div class="section-head">
+          <h2>Runtime architecture</h2>
+          <p>SCM controls <code>nssm.exe</code>; the host monitors the child app and reads config from the registry</p>
+        </div>
+        <div class="diagram-wrap" id="arch-diagram"></div>
+        <div class="diagram-wrap" id="stop-diagram"></div>
+      </section>
+
+      <section class="section" id="commands">
+        <div class="section-head">
+          <h2>CLI commands</h2>
+          <p>Full functionality without the GUI</p>
+        </div>
+        <div class="route-grid" id="command-grid"></div>
+      </section>
+
+      <section class="section" id="registry">
+        <div class="section-head">
+          <h2>Parameters (registry / get·set)</h2>
+          <p>Under <code>HKLM\SYSTEM\CurrentControlSet\Services\&lt;svc&gt;\Parameters</code></p>
+        </div>
+        <div id="registry-content"></div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="section-head">
+          <h2>Features</h2>
+          <p>Service monitoring & management inherited from upstream 2.24</p>
+        </div>
+        <ul class="feature-list" id="feature-list"></ul>
+      </section>
+
+      <section class="section" id="modules">
+        <div class="section-head">
+          <h2>Source files</h2>
+          <p>14 <code>.cpp</code> files (with matching headers)</p>
+        </div>
+        <table class="project-table" id="module-table"></table>
+      </section>
+
+      <section class="section" id="build">
+        <div class="section-head">
+          <h2>Build</h2>
+          <p>Release win32 + x64 with Visual Studio 2026 Build Tools (MSVC v145)</p>
+        </div>
+        <div class="test-list" id="build-steps"></div>
+        <div class="chip-row" id="platform-chips"></div>
+        <table class="stack-table" style="margin-top:1rem">
+          <tbody id="stack-table"></tbody>
+        </table>
+      </section>
+
+      <section class="section" id="credits">
+        <div class="section-head">
+          <h2>Credits & licence</h2>
+          <p>NSSM is public domain software</p>
+        </div>
+        <ul class="feature-list" id="credits-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>NSSM 2.25 · Tuyn Doan · Public Domain</span>
+    <span>·</span>
+    <a href="../../roadmap/index.html">Roadmap 2.26+</a>
+    <span>·</span>
+    <a href="../../../CHANGELOG.md#225--2026-06-26">Full CHANGELOG</a>
+  </footer>
+
+  <script src="release-data.js"></script>
+  <script src="release-app.js"></script>
+</body>
+</html>

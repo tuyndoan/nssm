@@ -1,0 +1,85 @@
+name: build
+
+# Build + smoke test on every push/PR.
+# Create a GitHub Release when a v* tag is pushed, or when run manually with
+# the "create_release" box ticked.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: "Create a GitHub Release from this run"
+        type: boolean
+        default: false
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [x86, x64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # tags available so version.cmd can use git describe
+
+      # build.cmd auto-detects the newest installed VS via vswhere.
+      # GitHub runners ship VS 2022 (v143) until images include VS 2026 (v145).
+      - name: Build ${{ matrix.platform }}
+        shell: cmd
+        run: call build.cmd ${{ matrix.platform }}
+
+      - name: Smoke test
+        shell: cmd
+        run: build\out\${{ matrix.platform }}\nssm.exe version
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nssm-${{ matrix.platform }}
+          path: build/out/${{ matrix.platform }}/nssm.exe
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.create_release)
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Package win32 + win64
+        shell: cmd
+        run: call pack.cmd
+
+      - name: Resolve tag & version
+        id: ver
+        shell: pwsh
+        run: |
+          $v = (Get-Content VERSION -Raw).Trim()
+          if ($env:GITHUB_REF -like 'refs/tags/*') { $tag = $env:GITHUB_REF_NAME } else { $tag = "v$v" }
+          "tag=$tag"      >> $env:GITHUB_OUTPUT
+          "version=$v"    >> $env:GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.ver.outputs.tag }}" `
+            dist/nssm-${{ steps.ver.outputs.version }}.zip `
+            dist/nssm-${{ steps.ver.outputs.version }}.zip.sha256 `
+            --title "NSSM ${{ steps.ver.outputs.version }}" `
+            --notes "Automated release from ${{ github.sha }}. See CHANGELOG.md for details." `
+            --target "${{ github.sha }}"

@@ -1,2 +1,36 @@
-*.mc diff
-*.rc diff
+# Normalize line endings; Git decides text vs binary automatically.
+* text=auto
+
+# Windows tooling requires CRLF.
+*.cmd   text eol=crlf
+*.bat   text eol=crlf
+*.sln   text eol=crlf
+*.vcproj text eol=crlf
+*.vcxproj text eol=crlf
+*.rc    text eol=crlf
+*.mc    text eol=crlf
+
+# C/C++ sources (LF in repo, normalized on checkout).
+*.c     text
+*.cpp   text
+*.h     text
+
+# Web docs.
+*.html  text
+*.css   text
+*.js    text
+*.md    text
+
+# Show readable diffs for resource/message scripts.
+*.rc    diff
+*.mc    diff
+
+# Binary assets — never normalize.
+*.ico   binary
+*.bin   binary
+*.png   binary
+*.jpg   binary
+*.gif   binary
+*.exe   binary
+*.pdb   binary
+*.res   binary

@@ -1,0 +1,37 @@
+# Build output
+/build/
+out/
+tmp/
+
+# Packaged distribution artifacts (publish via GitHub Releases, do not commit)
+/dist/
+
+# Generated into src/gen/ by build.cmd (version.cmd / mc.exe)
+/src/gen/
+
+# Compiler / linker intermediates
+*.obj
+*.res
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.tlog
+*.idb
+*.ipdb
+*.iobj
+
+# Visual Studio user/local files
+*.user
+*.suo
+*.ncb
+*.aps
+*.sdf
+*.opensdf
+.vs/
+
+# OS / editor cruft
+Thumbs.db
+Desktop.ini
+*.swp
+*~

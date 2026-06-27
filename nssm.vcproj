@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Setting version information"
-				CommandLine="version.cmd"
+				CommandLine="src\resources\version.cmd"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -125,7 +125,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Setting version information"
-				CommandLine="version.cmd"
+				CommandLine="src\resources\version.cmd"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -220,7 +220,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Setting version information"
-				CommandLine="version.cmd"
+				CommandLine="src\resources\version.cmd"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -317,7 +317,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Setting version information"
-				CommandLine="version.cmd"
+				CommandLine="src\resources\version.cmd"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -411,55 +411,19 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="account.cpp"
+				RelativePath="src\service\account.cpp"
 				>
 			</File>
 			<File
-				RelativePath="console.cpp"
+				RelativePath="src\platform\console.cpp"
 				>
 			</File>
 			<File
-				RelativePath="env.cpp"
+				RelativePath="src\platform\env.cpp"
 				>
 			</File>
 			<File
-				RelativePath="event.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="gui.cpp"
+				RelativePath="src\io\event.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -495,19 +459,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="hook.cpp"
-				>
-			</File>
-			<File
-				RelativePath="imports.cpp"
-				>
-			</File>
-			<File
-				RelativePath="io.cpp"
-				>
-			</File>
-			<File
-				RelativePath="nssm.cpp"
+				RelativePath="src\gui\gui.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -543,7 +495,19 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="process.cpp"
+				RelativePath="src\service\hook.cpp"
+				>
+			</File>
+			<File
+				RelativePath="src\platform\imports.cpp"
+				>
+			</File>
+			<File
+				RelativePath="src\io\io.cpp"
+				>
+			</File>
+			<File
+				RelativePath="src\cli\nssm.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -579,7 +543,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="registry.cpp"
+				RelativePath="src\service\process.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -615,7 +579,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="service.cpp"
+				RelativePath="src\config\registry.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -651,11 +615,47 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="settings.cpp"
+				RelativePath="src\service\service.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="src\config\settings.cpp"
 				>
 			</File>
 			<File
-				RelativePath="utf8.cpp"
+				RelativePath="src\platform\utf8.cpp"
 				>
 			</File>
 		</Filter>
@@ -664,59 +664,59 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="account.h"
+				RelativePath="src\service\account.h"
 				>
 			</File>
 			<File
-				RelativePath="console.h"
+				RelativePath="src\platform\console.h"
 				>
 			</File>
 			<File
-				RelativePath="env.h"
+				RelativePath="src\platform\env.h"
 				>
 			</File>
 			<File
-				RelativePath="event.h"
+				RelativePath="src\io\event.h"
 				>
 			</File>
 			<File
-				RelativePath="gui.h"
+				RelativePath="src\gui\gui.h"
 				>
 			</File>
 			<File
-				RelativePath="hook.h"
+				RelativePath="src\service\hook.h"
 				>
 			</File>
 			<File
-				RelativePath="imports.h"
+				RelativePath="src\platform\imports.h"
 				>
 			</File>
 			<File
-				RelativePath="io.h"
+				RelativePath="src\io\io.h"
 				>
 			</File>
 			<File
-				RelativePath="nssm.h"
+				RelativePath="src\include\nssm.h"
 				>
 			</File>
 			<File
-				RelativePath="process.h"
+				RelativePath="src\service\process.h"
 				>
 			</File>
 			<File
-				RelativePath="registry.h"
+				RelativePath="src\config\registry.h"
 				>
 			</File>
 			<File
-				RelativePath="service.h"
+				RelativePath="src\service\service.h"
 				>
 			</File>
 			<File
-				RelativePath="settings.h"
+				RelativePath="src\config\settings.h"
 				>
 			</File>
 			<File
-				RelativePath="utf8.h"
+				RelativePath="src\platform\utf8.h"
 				>
 			</File>
 		</Filter>
@@ -725,11 +725,11 @@
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 			>
 			<File
-				RelativePath="nssm.ico"
+				RelativePath="src\resources\nssm.ico"
 				>
 			</File>
 			<File
-				RelativePath="nssm.rc"
+				RelativePath="src\resources\nssm.rc"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -766,7 +766,7 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath="messages.mc"
+			RelativePath="src\resources\messages.mc"
 			>
 			<FileConfiguration
 				Name="Debug|Win32"

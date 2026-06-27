@@ -1,0 +1,45 @@
+---
+description: Keep CHANGELOG.md and docs/roadmap/roadmap-data.js in sync when editing the backlog
+globs:
+  - CHANGELOG.md
+  - docs/roadmap/**
+---
+
+# Roadmap / Backlog — keep CHANGELOG and docs/roadmap in sync
+
+When **adding, editing, removing, re-versioning**, or marking backlog items done in
+**`CHANGELOG.md`** (section `### Roadmap / Backlog`), **always update** the interactive
+page under `docs/roadmap/`.
+
+## Files and roles
+
+| File | Role |
+| --- | --- |
+| `CHANGELOG.md` | Source of truth (Keep a Changelog); release notes |
+| `docs/roadmap/roadmap-data.js` | UI data (`window.NSSM_ROADMAP`: versions, tracks, tasks, validate, checklist) |
+| `docs/roadmap/index.html` | Shell — edit only when changing layout/UI features |
+| `docs/roadmap/roadmap.css` / `roadmap-app.js` | Style & behavior — only when changing UX |
+
+## Checklist when changing the backlog
+
+1. Edit **`CHANGELOG.md`** (description, Validate, new version).
+2. Mirror in **`roadmap-data.js`**: stable task `id` (e.g. `226-b1`), `title`, `detail`, `validate`, `depends`, `theme`.
+3. New version → add object in `versions[]`, update `meta.chain`, `releaseChecklist` if needed.
+4. Delete/rename task → update or remove matching entry (orphaned localStorage ticks are acceptable).
+5. Open `docs/roadmap/index.html` — verify timeline, search, progress.
+
+## `roadmap-data.js` conventions
+
+- **`theme`:** `build` | `ci` | `compat` | `service` | `quality` | `docs`
+- Each task: `id`, `title`, `detail`, `validate`; `highlight: true` if notable; `tag: "refactor"` for refactors.
+- Shipped item → **Added** in the matching CHANGELOG version; remove from backlog or move to `released.highlights`.
+
+## Shipped releases
+
+- On a new release: update `shippedReleases` (newest first), `released`, `meta.currentRelease`.
+- Create `docs/release/<x.y.z>/` (data `window.NSSM_RELEASE_<XYZ>`) for HTML release notes; set `releaseNotes`. If none → `releaseNotes: null` (CHANGELOG link only).
+
+## Not required to sync
+
+- Detailed shipped release prose (old Added/Changed sections) — update `released` only when bumping the current version.
+- Upstream history (NSSM ≤ 2.24) — static; no roadmap mirror.
