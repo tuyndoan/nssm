@@ -44,6 +44,7 @@ Service and monitor/restart it on exit. Repository layout is standardized.
 
 - **CI `mc` failure:** GitHub Actions checkout no longer corrupts `messages.mc` / `nssm.rc` encoding; `mc.exe` compiles the message catalog again.
 - **CI artifacts** now include the version in their name (`nssm-<version>-x86` / `nssm-<version>-x64`); on `v*` tag builds the version comes from the tag.
+- **Release notes:** the release job uses `docs/release/<version>/RELEASE.md` as the GitHub Release body when present (falls back to an auto-generated note otherwise).
 
 ### Removed
 

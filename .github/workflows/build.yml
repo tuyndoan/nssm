@@ -85,9 +85,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          $v = "${{ steps.ver.outputs.version }}"
+          $notesFile = "docs/release/$v/RELEASE.md"
+          if (Test-Path $notesFile) {
+            $notesArg = @("--notes-file", $notesFile)
+          } else {
+            $notesArg = @("--notes", "Automated release from ${{ github.sha }}. See CHANGELOG.md for details.")
+          }
           gh release create "${{ steps.ver.outputs.tag }}" `
-            dist/nssm-${{ steps.ver.outputs.version }}.zip `
-            dist/nssm-${{ steps.ver.outputs.version }}.zip.sha256 `
-            --title "NSSM ${{ steps.ver.outputs.version }}" `
-            --notes "Automated release from ${{ github.sha }}. See CHANGELOG.md for details." `
-            --target "${{ github.sha }}"
+            "dist/nssm-$v.zip" `
+            "dist/nssm-$v.zip.sha256" `
+            --title "NSSM $v" `
+            --target "${{ github.sha }}" `
+            @notesArg

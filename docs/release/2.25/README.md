@@ -14,6 +14,7 @@ Open directly in a browser or via a static file server.
 
 | File | Role |
 | --- | --- |
+| `RELEASE.md` | GitHub Release body — used by CI (`--notes-file`) on a `v2.25` tag |
 | `index.html` | Layout |
 | `release-data.js` | Data (`window.NSSM_RELEASE_225`) — sync CHANGELOG when editing 2.25 |
 | `release-app.js` | Render & search |
