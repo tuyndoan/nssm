@@ -16,8 +16,17 @@ Any change to the repository (code, build, structure, behavior) **must** be refl
 ## docs/ targets
 
 - `docs/roadmap/roadmap-data.js` — backlog/version/task changes (also see `roadmap-backlog-sync.mdc`).
-- `docs/release/<x.y.z>/release-data.js` — release-notes content for the current version.
+- `docs/release/<x.y.z>/release-data.js` — interactive release-notes content (HTML viewer) for the version.
+- `docs/release/<x.y.z>/RELEASE.md` — **GitHub Release body**. CI (`.github/workflows/build.yml`) publishes this verbatim via `gh release create --notes-file` on a `v<x.y.z>` tag. Keep it in sync with the `CHANGELOG.md` section for that version.
 - `docs/manual.txt` — usage/CLI/registry behavior changes.
+
+## Release notes (per version)
+
+When cutting a new version `<x.y.z>`, before tagging `v<x.y.z>`:
+
+1. Create `docs/release/<x.y.z>/RELEASE.md` (Markdown; this is what users see on the GitHub Releases page). Mirror the highlights/fixed/known-issues from the matching `CHANGELOG.md` section.
+2. Update `docs/release/<x.y.z>/release-data.js` for the interactive HTML viewer.
+3. If `RELEASE.md` is missing, CI falls back to an auto-generated note — so always add it for a real release.
 
 ## Rules
 
@@ -32,4 +41,5 @@ Any change to the repository (code, build, structure, behavior) **must** be refl
 - [ ] `CHANGELOG.md` entry added/updated.
 - [ ] `README.md` updated if build/layout/usage/links changed.
 - [ ] Matching `docs/` page (roadmap / release / manual) updated.
+- [ ] For a release: `docs/release/<x.y.z>/RELEASE.md` exists and matches the CHANGELOG section.
 - [ ] Versions and links consistent everywhere; English only.
