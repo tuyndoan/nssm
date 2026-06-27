@@ -1,4 +1,4 @@
-/* NSSM docs — Public Domain. Single-page hub: tab routing + inline rendering. */
+/* NSSM docs -- Public Domain. Single-page hub: tab routing + inline rendering. */
 
 (function () {
   "use strict";
@@ -63,7 +63,7 @@
     html += '<div class="panel rel-hero">' +
       "<div>" +
         '<span class="rel-badge">' + esc(m.version) + "</span>" +
-        '<p class="rel-date">' + esc(m.date) + " · " + esc(m.tagline) + "</p>" +
+        '<p class="rel-date">' + esc(m.date) + " &middot; " + esc(m.tagline) + "</p>" +
         '<p class="rel-summary">' + esc(m.summary) + "</p>" +
       "</div>" +
       '<div class="stat-row">' + m.stats.map(function (s) {
@@ -86,7 +86,7 @@
           '<p class="route-desc">' + esc(c.desc) + "</p></div>";
       }).join("") + "</div>");
 
-    html += section("Parameters (registry / get·set)", "Under HKLM\\SYSTEM\\CurrentControlSet\\Services\\&lt;svc&gt;\\Parameters",
+    html += section("Parameters (registry / get&middot;set)", "Under HKLM\\SYSTEM\\CurrentControlSet\\Services\\&lt;svc&gt;\\Parameters",
       REL.registryGroups.map(function (g) {
         return '<div class="group"><h4>' + esc(g.group) + "</h4>" +
           '<div class="chips">' + g.params.map(function (p) {
@@ -121,12 +121,12 @@
       '<ul class="credit-list">' + REL.credits.map(function (c) {
         return "<li>" + esc(c) + "</li>";
       }).join("") + "</ul>" +
-      '<p style="margin-top:1rem"><a class="btn" href="https://github.com/tuyndoan/nssm/blob/main/CHANGELOG.md#225--2026-06-26" target="_blank" rel="noopener">Full changelog on GitHub →</a></p>");
+      '<p style="margin-top:1rem"><a class="btn" href="https://github.com/tuyndoan/nssm/blob/main/CHANGELOG.md#225--2026-06-26" target="_blank" rel="noopener">Full changelog on GitHub &rarr;</a></p>");
 
     pane.innerHTML =
-      '<div class="section-head"><h3>Release notes · ' + esc(m.version) + "</h3>" +
-        '<p>Search commands, parameters, modules…</p>' +
-        '<div style="margin-top:1rem"><input id="rel-search" class="btn" style="width:min(360px,100%);cursor:text;font-weight:400" type="search" placeholder="Filter commands, parameters, files…" autocomplete="off" /></div>' +
+      '<div class="section-head"><h3>Release notes &middot; ' + esc(m.version) + "</h3>" +
+        '<p>Search commands, parameters, modules&hellip;</p>' +
+        '<div style="margin-top:1rem"><input id="rel-search" class="btn" style="width:min(360px,100%);cursor:text;font-weight:400" type="search" placeholder="Filter commands, parameters, files&hellip;" autocomplete="off" /></div>' +
       "</div>" + html;
 
     var search = el("rel-search");
@@ -215,8 +215,8 @@
           '<ul class="task-list">' + tasks.map(function (it) {
             return '<li class="task' + (it.done ? " done" : "") + '">' +
               '<p class="task-title">' + (it.done
-                ? '<span class="tick">✓</span>'
-                : '<span class="box">○</span>') + esc(it.title) + "</p>" +
+                ? '<span class="tick">&#10003;</span>'
+                : '<span class="box">&#9675;</span>') + esc(it.title) + "</p>" +
               '<p class="task-detail">' + esc(it.detail) + "</p>" +
               '<p class="task-validate"><b>Validate</b> ' + esc(it.validate) + "</p></li>";
           }).join("") + "</ul></article>";
@@ -249,17 +249,17 @@
   function downloadSidebar() {
     return '<div class="dl-side">' +
       '<div class="panel"><h4>What\'s included</h4><ul>' +
-        "<li><code>win32/nssm.exe</code> — 32-bit binary</li>" +
-        "<li><code>win64/nssm.exe</code> — 64-bit binary</li>" +
-        "<li><code>README.txt</code> — usage manual</li>" +
-        "<li><code>.sha256</code> — checksum for the archive</li>" +
+        "<li><code>win32/nssm.exe</code> -- 32-bit binary</li>" +
+        "<li><code>win64/nssm.exe</code> -- 64-bit binary</li>" +
+        "<li><code>README.txt</code> -- usage manual</li>" +
+        "<li><code>.sha256</code> -- checksum for the archive</li>" +
       "</ul></div>" +
       '<div class="panel"><h4>Verify checksum</h4>' +
         '<pre class="verify-pre">(Get-FileHash nssm-2.25.zip `\n  -Algorithm SHA256).Hash\ntype nssm-2.25.zip.sha256</pre>' +
       "</div>" +
       '<div class="panel"><h4>Need details?</h4>' +
         '<p class="dl-note" style="margin:0 0 0.75rem">Older versions, full notes and source archives live on GitHub.</p>' +
-        '<a class="btn" href="https://github.com/tuyndoan/nssm/releases" target="_blank" rel="noopener">All releases on GitHub →</a>' +
+        '<a class="btn" href="https://github.com/tuyndoan/nssm/releases" target="_blank" rel="noopener">All releases on GitHub &rarr;</a>' +
       "</div></div>";
   }
 
@@ -269,7 +269,7 @@
     pane.innerHTML =
       '<div class="section-head"><h3>Download</h3><p>Latest prebuilt binaries, pulled live from GitHub Releases</p></div>' +
       '<div class="dl-grid"><div class="panel" id="dl-main">' +
-        '<div class="state"><div class="spinner"></div>Fetching latest release…</div>' +
+        '<div class="state"><div class="spinner"></div>Fetching latest release&hellip;</div>' +
       "</div>" + downloadSidebar() + "</div>";
 
     fetch("https://api.github.com/repos/" + REPO + "/releases/latest", {
@@ -296,7 +296,7 @@
         return '<div class="asset-row">' + assetIcon(a.name) +
           '<div class="asset-info"><div class="asset-name">' + esc(a.name) + "</div>" +
           '<div class="asset-meta">' + fmtSize(a.size) +
-            (a.download_count ? " · " + a.download_count + " downloads" : "") + "</div></div>" +
+            (a.download_count ? " &middot; " + a.download_count + " downloads" : "") + "</div></div>" +
           '<a class="btn btn-primary asset-dl" href="' + esc(a.browser_download_url) + '">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Get</a>' +
           "</div>";
@@ -311,7 +311,7 @@
       '<p class="dl-date">Published ' + fmtDate(rel.published_at) + "</p>" +
       rows +
       '<p style="margin-top:1.25rem"><a class="btn" href="' + esc(rel.html_url) +
-        '" target="_blank" rel="noopener">Full release notes on GitHub →</a></p>';
+        '" target="_blank" rel="noopener">Full release notes on GitHub &rarr;</a></p>';
   }
 
   function renderDownloadFallback() {
@@ -321,7 +321,7 @@
       '<div class="dl-head"><span class="dl-tag">NSSM ' + esc((REL && REL.meta.version) || "2.25") + "</span>" +
         '<span class="dl-latest">Latest</span></div>' +
       '<p class="dl-date">Live release info couldn\'t be loaded (GitHub API limit or offline).</p>' +
-      '<p class="dl-note" style="margin-bottom:1.25rem">Grab the binaries directly from the GitHub Releases page — it always has the latest <code>nssm-&lt;version&gt;.zip</code> and checksum.</p>' +
+      '<p class="dl-note" style="margin-bottom:1.25rem">Grab the binaries directly from the GitHub Releases page -- it always has the latest <code>nssm-&lt;version&gt;.zip</code> and checksum.</p>' +
       '<a class="btn btn-primary" href="https://github.com/tuyndoan/nssm/releases/latest" target="_blank" rel="noopener">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Open latest release</a>';
     rendered.download = true;
